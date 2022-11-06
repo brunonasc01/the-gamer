@@ -6,16 +6,21 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -23,8 +28,8 @@ import java.util.List;
 public class Gamer {
 
     @Id
-    @SequenceGenerator(name = "configurationSequenceGenerator", sequenceName = "GAMER_SQ", initialValue = 1000)
-    @GeneratedValue(generator = "configurationSequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "gamerSequenceGenerator", sequenceName = "GAMER_SQ", initialValue = 1000)
+    @GeneratedValue(generator = "gamerSequenceGenerator", strategy = GenerationType.SEQUENCE)
     @Column(name = "ID", updatable = false)
     private Long id;
     
@@ -53,12 +58,14 @@ public class Gamer {
     @Column(name = "EXPERIENCE")
     private Long experience;
 
-    @Transient
-    private List<String> attributes;
+    //TODO Fix Lazy Loading
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JoinColumn(name = "ATTRIBUTE_ID", referencedColumnName = "ID")
+    private Set<Attribute> attributes;
 
-    @Transient
-    private List<String> skills;
-
-    @Transient
-    private List<String> achievements;
+    //TODO Fix Lazy Loading
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JoinColumn(name = "ACHIEVEMENT_ID", referencedColumnName = "ID")
+    private List<Achievement> achievements;
+    
 }
