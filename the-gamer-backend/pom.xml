@@ -9,7 +9,7 @@
 
   <groupId>br.com.method</groupId>
   <artifactId>the-gamer-backend</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
   <name>the-gamer-backend</name>
   <!-- FIXME change it to the project's website -->
@@ -17,15 +17,23 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
 
   <dependencies>
-<!--    <dependency>-->
-<!--      <groupId>br.com.method</groupId>-->
-<!--      <artifactId>the-gamer-core</artifactId>-->
-<!--    </dependency>-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
 
     <!-- test dependencies -->
     <dependency>
