@@ -17,9 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -66,6 +64,5 @@ public class Gamer {
     //TODO Fix Lazy Loading
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, orphanRemoval = true)
     @JoinColumn(name = "ACHIEVEMENT_ID", referencedColumnName = "ID")
-    private List<Achievement> achievements;
-    
+    private Set<Achievement> achievements;
 }

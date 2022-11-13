@@ -35,6 +35,11 @@
       <artifactId>lombok</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>br.com.method</groupId>
+      <artifactId>the-gamer-core</artifactId>
+    </dependency>
+    
     <!-- test dependencies -->
     <dependency>
       <groupId>com.h2database</groupId>

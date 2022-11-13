@@ -26,7 +26,7 @@ public class GamerUtils {
         gamer.setLevel(1);
         gamer.setAttributes(Arrays.stream(AttributeType.values())
                 .map(GamerUtils::createAttribute).collect(Collectors.toSet()));
-        gamer.setAchievements(Arrays.asList(createAchievement(AchievementTier.BRONZE)));
+        gamer.setAchievements(Set.of(createAchievement(AchievementTier.BRONZE)));
         return gamer;
     }
         
