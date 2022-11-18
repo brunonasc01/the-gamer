@@ -32,6 +32,8 @@ public class GamerUtils {
         
     public static Attribute createAttribute(AttributeType attributeType) {
         Attribute attribute = new Attribute();
+        attribute.setCreatedBy("Mathew");
+        attribute.setCreatedDate(LocalDateTime.now());
         attribute.setType(attributeType);
         attribute.setPoints(0);
         return attribute;
@@ -39,6 +41,8 @@ public class GamerUtils {
     
     public static Achievement createAchievement(AchievementTier achievementTier) {
         Achievement achievement = new Achievement();
+        achievement.setCreatedBy("Mathew");
+        achievement.setCreatedDate(LocalDateTime.now());
         achievement.setName("Software Programmer");
         achievement.setTier(achievementTier);
         achievement.setPoints(1000l);

@@ -1,0 +1,103 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.10.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet author="bruno.araujo" id="2022111800001-1">
+        <createSequence incrementBy="50" sequenceName="gamer_sq" startValue="1000"/>
+    </changeSet>
+
+    <changeSet author="bruno.araujo" id="2022111800001-2">
+        <createTable tableName="gamer">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="gamerPK"/>
+            </column>
+            <column name="created_by" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(36)"/>
+            <column name="last_modified_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="name" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="level" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="experience" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="bruno.araujo" id="2022111800002-1">
+        <createSequence incrementBy="50" sequenceName="attribute_sq" startValue="1000"/>
+    </changeSet>
+
+    <changeSet author="bruno.araujo" id="2022111800002-2">
+        <createTable tableName="attribute">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="attributePK"/>
+            </column>
+            <column name="created_by" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(36)"/>
+            <column name="last_modified_date" type="TIMESTAMP"/>
+            <column name="type" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="points" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gamer_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="bruno.araujo" id="2022111800002-3">
+        <addForeignKeyConstraint baseColumnNames="gamer_id" baseTableName="attribute" constraintName="gamerAttributeFK" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="gamer" validate="true"/>
+    </changeSet>
+
+    <changeSet author="bruno.araujo" id="2022111800003-1">
+        <createSequence incrementBy="50" sequenceName="achievement_sq" startValue="1000"/>
+    </changeSet>
+
+    <changeSet author="bruno.araujo" id="2022111800003-2">
+        <createTable tableName="achievement">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="achievementPK"/>
+            </column>
+            <column name="created_by" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(36)"/>
+            <column name="last_modified_date" type="TIMESTAMP"/>
+            <column name="name" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tier" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="points" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gamer_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="bruno.araujo" id="2022111800003-3">
+        <addForeignKeyConstraint baseColumnNames="gamer_id" baseTableName="achievement" constraintName="gamerAchievementFK" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="gamer" validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>

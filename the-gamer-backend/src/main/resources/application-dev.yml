@@ -1,13 +1,9 @@
 spring:
-  
-  h2:
-    console.enabled: true
 
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:test;MODE=PostgreSQL
-    username: user
-    password: undefined
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=the_gamer_dev_default
+    username: postgres
+    password: postgres
 
     hikari:
       maximum-pool-size: 10
@@ -17,10 +13,13 @@ spring:
       maxLifetime: 1800000
 
   jpa:
-    hibernate:
-      ddl-auto: create-drop
     properties:
       hibernate.jdbc.batch_size: 50
       hibernate.show_sql: true
       hibernate.format_sql: true
       hibernate.use_sql_comments: true
+
+  liquibase:
+    contexts: dev
+    drop-first: true
+    enabled: true

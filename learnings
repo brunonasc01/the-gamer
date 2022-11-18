@@ -1,0 +1,10 @@
+- Para carregar atributos Lazy, e corrigir o erro do tipo failed to lazily initialize a collection of role: <package>, could not initialize proxy - no Session
+Anote o método ou funcao com @Transactional
+
+- Em projetos multi-modulo para nao precisa declarar a versao da dependencia nos modulos, defina no pom pai as dependencias (com versao) dentro da tag <dependencyManagement>
+
+- Para ativar o liquibase é necessário a dependencia liquibase-core, alem da configuracao no application.yml
+  liquibase:
+    change-log: classpath:<path-changelog-master-xml>
+    drop-first: false
+    enabled: true

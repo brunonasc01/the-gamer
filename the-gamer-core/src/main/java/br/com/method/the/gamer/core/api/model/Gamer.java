@@ -56,13 +56,11 @@ public class Gamer {
     @Column(name = "EXPERIENCE")
     private Long experience;
 
-    //TODO Fix Lazy Loading
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @JoinColumn(name = "ATTRIBUTE_ID", referencedColumnName = "ID")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JoinColumn(name = "GAMER_ID", referencedColumnName = "ID")
     private Set<Attribute> attributes;
 
-    //TODO Fix Lazy Loading
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @JoinColumn(name = "ACHIEVEMENT_ID", referencedColumnName = "ID")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JoinColumn(name = "GAMER_ID", referencedColumnName = "ID")
     private Set<Achievement> achievements;
 }

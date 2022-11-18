@@ -1,0 +1,37 @@
+management:
+  endpoint:
+    env:
+      enabled: true
+    health:
+      enabled: true
+    liquibase:
+      enabled: true
+    logfile:
+      enabled: true
+    metrics:
+      enabled: true
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate:
+      ddl-auto: none
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQL10Dialect
+      hibernate.jdbc.batch_size: 50
+
+  liquibase:
+    change-log: classpath:database/changelog/the-gamer-core-changelog-master.xml
+    drop-first: false
+    enabled: true

@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.ConfigDataApplicationContextInitial
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -27,7 +28,8 @@ class DefaultCreateGamerTest {
     
     @Autowired
     RetrieveGamer retrieveGamer;
-    
+
+    @Transactional
     @Test
     void createGamerSuccess() {
         Gamer gamer = GamerUtils.createGamer();
