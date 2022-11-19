@@ -7,7 +7,10 @@ import br.com.method.the.gamer.core.api.model.AttributeType;
 import br.com.method.the.gamer.core.api.model.Gamer;
 import br.com.method.the.gamer.core.api.model.Schedule;
 import br.com.method.the.gamer.core.api.model.ScheduleStatus;
+import br.com.method.the.gamer.core.api.model.Task;
+import br.com.method.the.gamer.core.api.model.TaskStatus;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -60,5 +63,19 @@ public class GamerUtils {
         schedule.setDay(LocalDate.now());
         schedule.setStatus(ScheduleStatus.OPEN);
         return schedule;
+    }
+
+    public static Task createTask(Schedule schedule) {
+        Task task = new Task();
+        task.setCreatedBy(schedule.getCreatedBy());
+        task.setCreatedDate(LocalDateTime.now());
+        task.setName("Task1");
+        task.setDescription("description of task");
+        task.setDuration(Duration.ofHours(1L).toMillis());
+        task.setDifficult(1);
+        task.setStart(LocalDateTime.now());
+        task.setStatus(TaskStatus.OPEN);
+        task.setSchedule(schedule);
+        return task;
     }
 }

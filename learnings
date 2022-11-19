@@ -8,3 +8,5 @@ Anote o método ou funcao com @Transactional
     change-log: classpath:<path-changelog-master-xml>
     drop-first: false
     enabled: true
+
+- No mapeamento bidirecional o atributo many deve ser um List, com Set nao funciona
