@@ -100,4 +100,35 @@
         <addForeignKeyConstraint baseColumnNames="gamer_id" baseTableName="achievement" constraintName="gamerAchievementFK" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="gamer" validate="true"/>
     </changeSet>
 
+    <changeSet author="bruno.araujo" id="2022111800004-1">
+        <createSequence incrementBy="50" sequenceName="schedule_sq" startValue="1000"/>
+    </changeSet>
+
+    <changeSet author="bruno.araujo" id="2022111800004-2">
+        <createTable tableName="schedule">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="schedulePK"/>
+            </column>
+            <column name="created_by" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(36)"/>
+            <column name="last_modified_date" type="TIMESTAMP"/>
+
+            <column name="day" type="TIMESTAMP"/>
+
+            <column name="status" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="gamer_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="bruno.araujo" id="2022111800004-3">
+        <addForeignKeyConstraint baseColumnNames="gamer_id" baseTableName="schedule" constraintName="gamerScheduleFK" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="gamer" validate="true"/>
+    </changeSet>
 </databaseChangeLog>

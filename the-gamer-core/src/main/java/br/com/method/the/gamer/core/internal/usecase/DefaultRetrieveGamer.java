@@ -6,7 +6,7 @@ import br.com.method.the.gamer.core.api.usecase.RetrieveGamer;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,8 +16,12 @@ public class DefaultRetrieveGamer implements RetrieveGamer {
     private final GamerRepository gamerRepository;
     
     @Override
-    @Transactional
     public Optional<Gamer> execute(Gamer gamer) {
-        return this.gamerRepository.findByName(gamer.getName());
+        return this.gamerRepository.findById(gamer.getId());
+    }
+
+    @Override
+    public List<Gamer> execute() {
+        return this.gamerRepository.findAll();
     }
 }

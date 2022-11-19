@@ -1,5 +1,7 @@
 package br.com.method.the.gamer.core.api.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -16,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -51,7 +54,8 @@ public class Schedule {
     @Column(name = "LAST_MODIFIED_DATE", insertable = false)
     private LocalDateTime lastModifiedDate;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "GAMER_ID", referencedColumnName = "ID")
     private Gamer gamer;
     
@@ -59,9 +63,9 @@ public class Schedule {
     private LocalDate day;
 
     //TODO Fix Lazy Loading
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @JoinColumn(name = "TASK_ID", referencedColumnName = "ID")
-    private Set<Task> tasks;
+//    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
+//    @JoinColumn(name = "TASK_ID", referencedColumnName = "ID")
+//    private Set<Task> tasks;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

@@ -1,5 +1,6 @@
 package br.com.method.the.gamer.core.api.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -18,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -63,4 +65,8 @@ public class Gamer {
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
     @JoinColumn(name = "GAMER_ID", referencedColumnName = "ID")
     private Set<Achievement> achievements;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "gamer", fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private List<Schedule> schedules;
 }

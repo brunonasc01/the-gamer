@@ -5,7 +5,10 @@ import br.com.method.the.gamer.core.api.model.AchievementTier;
 import br.com.method.the.gamer.core.api.model.Attribute;
 import br.com.method.the.gamer.core.api.model.AttributeType;
 import br.com.method.the.gamer.core.api.model.Gamer;
+import br.com.method.the.gamer.core.api.model.Schedule;
+import br.com.method.the.gamer.core.api.model.ScheduleStatus;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Set;
@@ -48,5 +51,14 @@ public class GamerUtils {
         achievement.setPoints(1000l);
         return achievement;
     }
-    
+
+    public static Schedule createSchedule(Gamer gamer) {
+        Schedule schedule = new Schedule();
+        schedule.setCreatedBy(gamer.getCreatedBy());
+        schedule.setCreatedDate(LocalDateTime.now());
+        schedule.setGamer(gamer);
+        schedule.setDay(LocalDate.now());
+        schedule.setStatus(ScheduleStatus.OPEN);
+        return schedule;
+    }
 }
