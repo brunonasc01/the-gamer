@@ -18,9 +18,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Entity
@@ -67,10 +69,10 @@ public class Task {
     @Column(name = "FINISH")
     private LocalDateTime finish;
 
-    //TODO alterar para lista
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "ATTRIBUTES")
-//    private AttributeType attributes;
+    @Column(name = "ATTRIBUTES")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JoinColumn(name = "TASK_ID", referencedColumnName = "ID")
+    private Set<TaskAttribute> attributes;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")

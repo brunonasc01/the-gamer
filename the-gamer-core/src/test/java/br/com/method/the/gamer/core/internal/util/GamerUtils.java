@@ -8,12 +8,14 @@ import br.com.method.the.gamer.core.api.model.Gamer;
 import br.com.method.the.gamer.core.api.model.Schedule;
 import br.com.method.the.gamer.core.api.model.ScheduleStatus;
 import br.com.method.the.gamer.core.api.model.Task;
+import br.com.method.the.gamer.core.api.model.TaskAttribute;
 import br.com.method.the.gamer.core.api.model.TaskStatus;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,7 +43,7 @@ public class GamerUtils {
         attribute.setCreatedBy("Mathew");
         attribute.setCreatedDate(LocalDateTime.now());
         attribute.setType(attributeType);
-        attribute.setPoints(0);
+        attribute.setPoints(new Random().nextInt(10));
         return attribute;
     }
     
@@ -76,6 +78,17 @@ public class GamerUtils {
         task.setStart(LocalDateTime.now());
         task.setStatus(TaskStatus.OPEN);
         task.setSchedule(schedule);
+        task.setAttributes(Arrays.stream(AttributeType.values())
+                .map(GamerUtils::createTaskAttribute).collect(Collectors.toSet()));
         return task;
+    }
+
+    public static TaskAttribute createTaskAttribute(AttributeType attributeType) {
+        TaskAttribute taskAttribute = new TaskAttribute();
+        taskAttribute.setCreatedBy("Mathew");
+        taskAttribute.setCreatedDate(LocalDateTime.now());
+        taskAttribute.setType(attributeType);
+        taskAttribute.setWeight(100);
+        return taskAttribute;
     }
 }

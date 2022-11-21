@@ -16,8 +16,8 @@ public class DefaultRetrieveGamer implements RetrieveGamer {
     private final GamerRepository gamerRepository;
     
     @Override
-    public Optional<Gamer> execute(Gamer gamer) {
-        return this.gamerRepository.findById(gamer.getId());
+    public Optional<Gamer> execute(Long gamerId) {
+        return this.gamerRepository.findById(gamerId);
     }
 
     @Override

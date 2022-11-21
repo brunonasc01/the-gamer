@@ -1,9 +1,9 @@
 package br.com.method.the.gamer.core.internal.usecase;
 
 import br.com.method.the.gamer.core.api.model.Gamer;
-import br.com.method.the.gamer.core.api.repository.GamerRepository;
+import br.com.method.the.gamer.core.api.model.Task;
 import br.com.method.the.gamer.core.api.usecase.CreateGamer;
-import br.com.method.the.gamer.core.api.usecase.RetrieveGamer;
+import br.com.method.the.gamer.core.api.usecase.RetrieveDifficult;
 import br.com.method.the.gamer.core.internal.configuration.TheGamerCoreTestConfiguration;
 import br.com.method.the.gamer.core.internal.util.GamerUtils;
 import org.junit.jupiter.api.Assertions;
@@ -14,30 +14,32 @@ import org.springframework.boot.test.context.ConfigDataApplicationContextInitial
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import javax.transaction.Transactional;
 
 @ActiveProfiles(profiles = "test")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(initializers = ConfigDataApplicationContextInitializer.class, classes = {TheGamerCoreTestConfiguration.class})
-class DefaultCreateGamerTest {
+public class DefaultRetrieveDifficultTest {
     
+    @Autowired
+    RetrieveDifficult retrieveDifficult;
+
     @Autowired
     CreateGamer createGamer;
     
-    @Autowired
-    RetrieveGamer retrieveGamer;
-
     @Transactional
     @Test
-    void createGamerSuccess() {
+    void executeSuccess(){
         Gamer gamer = GamerUtils.createGamer();
-        Assertions.assertTrue(this.createGamer.execute(gamer).isPresent());
-        Optional<Gamer> freshGamer = this.retrieveGamer.execute(gamer.getId());
-        Assertions.assertTrue(freshGamer.isPresent());
-        Assertions.assertTrue(freshGamer.get().getAchievements().size() > 0);
-        Assertions.assertTrue(freshGamer.get().getAttributes().size() > 0);
+        this.createGamer.execute(gamer);
+        Task task = this.fillData(gamer);
+        task.getAttributes().stream().forEach(taskAttribute -> {
+            Assertions.assertTrue(this.retrieveDifficult.execute(taskAttribute, gamer.getId()) > 0);
+        });
     }
-    
+
+    private Task fillData(Gamer gamer) {
+        return GamerUtils.createTask(GamerUtils.createSchedule(gamer));
+    }
 }

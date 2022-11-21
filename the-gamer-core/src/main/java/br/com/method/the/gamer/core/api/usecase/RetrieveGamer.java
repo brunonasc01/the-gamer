@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface RetrieveGamer {
 
-    Optional<Gamer> execute(Gamer gamer);
+    Optional<Gamer> execute(Long gamerId);
 
     List<Gamer> execute();
 }
