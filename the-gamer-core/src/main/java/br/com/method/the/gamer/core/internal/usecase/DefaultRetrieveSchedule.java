@@ -16,8 +16,8 @@ public class DefaultRetrieveSchedule implements RetrieveSchedule {
     private final ScheduleRepository scheduleRepository;
 
     @Override
-    public Optional<Schedule> execute(Schedule schedule) {
-        return this.scheduleRepository.findById(schedule.getId());
+    public Optional<Schedule> execute(Long scheduleId) {
+        return this.scheduleRepository.findById(scheduleId);
     }
 
     @Override

@@ -1,15 +1,6 @@
 package br.com.method.the.gamer.core.internal.util;
 
-import br.com.method.the.gamer.core.api.model.Achievement;
-import br.com.method.the.gamer.core.api.model.AchievementTier;
-import br.com.method.the.gamer.core.api.model.Attribute;
-import br.com.method.the.gamer.core.api.model.AttributeType;
-import br.com.method.the.gamer.core.api.model.Gamer;
-import br.com.method.the.gamer.core.api.model.Schedule;
-import br.com.method.the.gamer.core.api.model.ScheduleStatus;
-import br.com.method.the.gamer.core.api.model.Task;
-import br.com.method.the.gamer.core.api.model.TaskAttribute;
-import br.com.method.the.gamer.core.api.model.TaskStatus;
+import br.com.method.the.gamer.core.api.model.*;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -74,7 +65,7 @@ public class GamerUtils {
         task.setName("Task1");
         task.setDescription("description of task");
         task.setDuration(Duration.ofHours(1L).toMillis());
-        task.setDifficult(1);
+        task.setDifficult(Difficult.NORMAL);
         task.setStart(LocalDateTime.now());
         task.setStatus(TaskStatus.OPEN);
         task.setSchedule(schedule);

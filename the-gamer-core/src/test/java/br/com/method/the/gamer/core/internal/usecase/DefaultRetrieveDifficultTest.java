@@ -1,5 +1,6 @@
 package br.com.method.the.gamer.core.internal.usecase;
 
+import br.com.method.the.gamer.core.api.model.Difficult;
 import br.com.method.the.gamer.core.api.model.Gamer;
 import br.com.method.the.gamer.core.api.model.Task;
 import br.com.method.the.gamer.core.api.usecase.CreateGamer;
@@ -35,7 +36,8 @@ public class DefaultRetrieveDifficultTest {
         this.createGamer.execute(gamer);
         Task task = this.fillData(gamer);
         task.getAttributes().stream().forEach(taskAttribute -> {
-            Assertions.assertTrue(this.retrieveDifficult.execute(taskAttribute, gamer.getId()) > 0);
+            Assertions.assertInstanceOf(Difficult.class,
+                    this.retrieveDifficult.execute(taskAttribute, gamer.getId()));
         });
     }
 

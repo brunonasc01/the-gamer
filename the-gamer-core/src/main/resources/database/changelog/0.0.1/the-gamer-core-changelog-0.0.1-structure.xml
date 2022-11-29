@@ -162,7 +162,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="difficult" type="INT">
+            <column name="difficult" type="VARCHAR(32)">
                 <constraints nullable="false"/>
             </column>
 

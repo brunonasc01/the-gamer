@@ -60,8 +60,9 @@ public class Task {
     @Column(name = "DURATION")
     private Long duration;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "DIFFICULT")
-    private Integer difficult;
+    private Difficult difficult;
 
     @Column(name = "START")
     private LocalDateTime start;

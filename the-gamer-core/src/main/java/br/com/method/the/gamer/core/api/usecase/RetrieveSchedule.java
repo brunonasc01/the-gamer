@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface RetrieveSchedule {
 
-    Optional<Schedule> execute(Schedule schedule);
+    Optional<Schedule> execute(Long scheduleId);
 
     List<Schedule> execute();
 }

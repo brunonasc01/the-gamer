@@ -1,9 +1,6 @@
 package br.com.method.the.gamer.core.internal.usecase;
 
-import br.com.method.the.gamer.core.api.model.Attribute;
-import br.com.method.the.gamer.core.api.model.AttributeType;
-import br.com.method.the.gamer.core.api.model.Gamer;
-import br.com.method.the.gamer.core.api.model.TaskAttribute;
+import br.com.method.the.gamer.core.api.model.*;
 import br.com.method.the.gamer.core.api.usecase.RetrieveDifficult;
 import br.com.method.the.gamer.core.api.usecase.RetrieveGamer;
 import lombok.AllArgsConstructor;
@@ -21,21 +18,15 @@ public class DefaultRetrieveDifficult implements RetrieveDifficult {
     
     private final RetrieveGamer retrieveGamer;
     
-    private final Integer MULTIPLY_BY_100 = 100;
+    private static final Integer MULTIPLY_BY_100 = 100;
     
     @Override
-    public Double execute(TaskAttribute taskAttribute, Long gamerId) {
+    public Difficult execute(TaskAttribute taskAttribute, Long gamerId) {
         Optional<Gamer> gamer = this.retrieveGamer.execute(gamerId);
-        Map<AttributeType, Double> gamerAttributeWeights = this.getGamerAttributeWeights(gamer.get());
-        Double difficult = 125.0;
+        Map<AttributeType, Double> gamerAttributeWeights = this.getGamerAttributeWeights(gamer.orElseThrow());
         Double attributeWeight = gamerAttributeWeights.get(taskAttribute.getType());
-        if(attributeWeight > 0) {
-            difficult = Math.sqrt(taskAttribute.getWeight().doubleValue()/attributeWeight)*MULTIPLY_BY_100;    
-        }
-        log.info("Task weight {}, Attribute {} weight {} Difficult {}",
-                taskAttribute.getWeight(), taskAttribute.getType(), gamerAttributeWeights.get(taskAttribute.getType()), difficult);
         //TODO definir retornar valor bruto, indice ou Enum
-        return difficult;
+        return this.calculateDifficult(taskAttribute, attributeWeight);
     }
     
     private Integer getGamerAttributePointsTotal(Gamer gamer) {
@@ -50,5 +41,29 @@ public class DefaultRetrieveDifficult implements RetrieveDifficult {
     
     private Double getWeight(Attribute attribute, Integer attributePointsTotal) {
         return attribute.getPoints() > 0 ? (attribute.getPoints().doubleValue()/attributePointsTotal)*MULTIPLY_BY_100 : 0d;
+    }
+
+    private Difficult calculateDifficult(TaskAttribute taskAttribute, Double attributeWeight) {
+        if(attributeWeight <= 0) {
+           return Difficult.VERY_HARD;
+        }
+        Double difficultFactor = Math.sqrt(taskAttribute.getWeight().doubleValue()/attributeWeight);
+
+        log.info("Task weight {}, Attribute weight {} Difficult {}",
+                taskAttribute.getWeight(), attributeWeight, difficultFactor);
+
+        if(difficultFactor < 0.75) {
+            return Difficult.VERY_EASY;
+        }
+        else if(difficultFactor >= 0.75 && difficultFactor < 1.0) {
+            return Difficult.EASY;
+        }
+        else if(difficultFactor > 1.00 && difficultFactor < 1.25) {
+            return Difficult.HARD;
+        }
+        else if(difficultFactor >= 1.25) {
+            return Difficult.VERY_HARD;
+        }
+        return Difficult.NORMAL;
     }
 }

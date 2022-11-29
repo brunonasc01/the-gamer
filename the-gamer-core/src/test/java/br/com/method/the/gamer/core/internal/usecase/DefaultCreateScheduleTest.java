@@ -39,7 +39,7 @@ class DefaultCreateScheduleTest {
         Gamer gamer = GamerUtils.createGamer();
         Optional<Gamer> createdGamer = this.createGamer.execute(gamer);
         Optional<Schedule> createdSchedule = this.createSchedule.execute(GamerUtils.createSchedule(createdGamer.get()));
-        Optional<Schedule> freshSchedule = this.retrieveSchedule.execute(createdSchedule.get());
+        Optional<Schedule> freshSchedule = this.retrieveSchedule.execute(createdSchedule.get().getId());
         Assertions.assertTrue(createdGamer.isPresent());
         Assertions.assertTrue(createdSchedule.isPresent());
         Assertions.assertTrue(freshSchedule.isPresent());
