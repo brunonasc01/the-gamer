@@ -1,10 +1,6 @@
 package br.com.method.the.gamer.core.api.model;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,12 +14,12 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "TASK_ATTRIBUTE")
-public class TaskAttribute extends AuditEntity{
+@Table(name = "QUEST_ATTRIBUTE")
+public class QuestAttribute extends AuditEntity{
 
     @Id
-    @SequenceGenerator(name = "taskAttributeSequenceGenerator", sequenceName = "TASK_ATTRIBUTE_SQ", initialValue = 1000)
-    @GeneratedValue(generator = "taskAttributeSequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "questAttributeSequenceGenerator", sequenceName = "QUEST_ATTRIBUTE_SQ", initialValue = 1000)
+    @GeneratedValue(generator = "questAttributeSequenceGenerator", strategy = GenerationType.SEQUENCE)
     @Column(name = "ID", updatable = false)
     private Long id;
 

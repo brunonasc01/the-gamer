@@ -63,7 +63,7 @@ public class Schedule {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
-    private List<Task> tasks;
+    private List<Quest> quests;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

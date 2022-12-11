@@ -1,7 +1,7 @@
 package br.com.method.the.gamer.core.internal.usecase;
 
 import br.com.method.the.gamer.core.api.model.Schedule;
-import br.com.method.the.gamer.core.api.model.Task;
+import br.com.method.the.gamer.core.api.model.Quest;
 import br.com.method.the.gamer.core.api.usecase.*;
 import br.com.method.the.gamer.core.internal.configuration.TheGamerCoreTestConfiguration;
 import br.com.method.the.gamer.core.internal.util.GamerUtils;
@@ -26,10 +26,10 @@ import java.util.Optional;
 @ActiveProfiles(profiles = "test")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(initializers = ConfigDataApplicationContextInitializer.class, classes = {TheGamerCoreTestConfiguration.class})
-class DefaultValidateTaskTest {
+class DefaultValidateQuestTest {
 
     @Autowired
-    ValidateTask validateTask;
+    ValidateQuest validateQuest;
 
     @MockBean
     RetrieveSchedule retrieveSchedule;
@@ -43,38 +43,38 @@ class DefaultValidateTaskTest {
         schedule.setId(1000L);
         LocalDateTime start = LocalDateTime.now();
         LocalDateTime finish = start.plusMinutes(5l);
-        schedule.setTasks(Arrays.asList(this.createTask(schedule, start, finish)));
+        schedule.setQuests(Arrays.asList(this.createQuest(schedule, start, finish)));
         Mockito.when(this.retrieveSchedule.execute(Mockito.anyLong())).thenReturn(Optional.of(schedule));
     }
 
     @Transactional
     @Test
-    void validateTaskSlotAvailableAfter() {
+    void validateQuestSlotAvailableAfter() {
         LocalDateTime start = LocalDateTime.now();
-        Task newTask = this.createTask(this.schedule, start.plusMinutes(5l), start.plusMinutes(7l));
-        Assertions.assertTrue(this.validateTask.execute(newTask).isPresent());
+        Quest newQuest = this.createQuest(this.schedule, start.plusMinutes(5l), start.plusMinutes(7l));
+        Assertions.assertTrue(this.validateQuest.execute(newQuest).isPresent());
     }
 
     @Transactional
     @Test
-    void validateTaskSlotAvailableBefore() {
+    void validateQuestSlotAvailableBefore() {
         LocalDateTime start = LocalDateTime.now();
-        Task newTask = this.createTask(this.schedule, start.minusMinutes(3l), start.minusSeconds(1l));
-        Assertions.assertTrue(this.validateTask.execute(newTask).isPresent());
+        Quest newQuest = this.createQuest(this.schedule, start.minusMinutes(3l), start.minusSeconds(1l));
+        Assertions.assertTrue(this.validateQuest.execute(newQuest).isPresent());
     }
 
     @Transactional
     @Test
-    void validateTaskSlotUnavailable() {
+    void validateQuestSlotUnavailable() {
         LocalDateTime start = LocalDateTime.now();
-        Task newTask = this.createTask(this.schedule, start.plusMinutes(1l), start.plusMinutes(2l));
-        Assertions.assertTrue(this.validateTask.execute(newTask).isEmpty());
+        Quest newQuest = this.createQuest(this.schedule, start.plusMinutes(1l), start.plusMinutes(2l));
+        Assertions.assertTrue(this.validateQuest.execute(newQuest).isEmpty());
     }
 
-    private Task createTask(Schedule schedule, LocalDateTime start, LocalDateTime finish) {
-        Task task = GamerUtils.createTask(schedule);
-        task.setStart(start);
-        task.setFinish(finish);
-        return task;
+    private Quest createQuest(Schedule schedule, LocalDateTime start, LocalDateTime finish) {
+        Quest quest = GamerUtils.createQuest(schedule);
+        quest.setStart(start);
+        quest.setFinish(finish);
+        return quest;
     }
 }

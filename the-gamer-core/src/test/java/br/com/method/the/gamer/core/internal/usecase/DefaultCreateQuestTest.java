@@ -1,12 +1,11 @@
 package br.com.method.the.gamer.core.internal.usecase;
 
 import br.com.method.the.gamer.core.api.model.Gamer;
+import br.com.method.the.gamer.core.api.model.Quest;
 import br.com.method.the.gamer.core.api.model.Schedule;
-import br.com.method.the.gamer.core.api.model.Task;
 import br.com.method.the.gamer.core.api.usecase.CreateGamer;
 import br.com.method.the.gamer.core.api.usecase.CreateSchedule;
-import br.com.method.the.gamer.core.api.usecase.CreateTask;
-import br.com.method.the.gamer.core.api.usecase.RetrieveSchedule;
+import br.com.method.the.gamer.core.api.usecase.CreateQuest;
 import br.com.method.the.gamer.core.internal.configuration.TheGamerCoreTestConfiguration;
 import br.com.method.the.gamer.core.internal.util.GamerUtils;
 import org.junit.jupiter.api.Assertions;
@@ -24,7 +23,7 @@ import java.util.Optional;
 @ActiveProfiles(profiles = "test")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(initializers = ConfigDataApplicationContextInitializer.class, classes = {TheGamerCoreTestConfiguration.class})
-class DefaultCreateTaskTest {
+class DefaultCreateQuestTest {
     
     @Autowired
     CreateSchedule createSchedule;
@@ -33,18 +32,18 @@ class DefaultCreateTaskTest {
     CreateGamer createGamer;
 
     @Autowired
-    CreateTask createTask;
+    CreateQuest createQuest;
 
     @Transactional
     @Test
-    void createTaskSuccess() {
+    void createQuestSuccess() {
         Gamer gamer = GamerUtils.createGamer();
         Optional<Gamer> createdGamer = this.createGamer.execute(gamer);
         Optional<Schedule> createdSchedule = this.createSchedule.execute(GamerUtils.createSchedule(createdGamer.get()));
-        Optional<Task> createdTask = this.createTask.execute(GamerUtils.createTask(createdSchedule.get()));
+        Optional<Quest> createdQuest = this.createQuest.execute(GamerUtils.createQuest(createdSchedule.get()));
         Assertions.assertTrue(createdGamer.isPresent());
         Assertions.assertTrue(createdSchedule.isPresent());
-        Assertions.assertTrue(createdTask.isPresent());
+        Assertions.assertTrue(createdQuest.isPresent());
     }
     
 }

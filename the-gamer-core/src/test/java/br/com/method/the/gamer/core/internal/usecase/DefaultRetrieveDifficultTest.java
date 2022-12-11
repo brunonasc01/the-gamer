@@ -2,7 +2,7 @@ package br.com.method.the.gamer.core.internal.usecase;
 
 import br.com.method.the.gamer.core.api.model.Difficult;
 import br.com.method.the.gamer.core.api.model.Gamer;
-import br.com.method.the.gamer.core.api.model.Task;
+import br.com.method.the.gamer.core.api.model.Quest;
 import br.com.method.the.gamer.core.api.usecase.CreateGamer;
 import br.com.method.the.gamer.core.api.usecase.RetrieveDifficult;
 import br.com.method.the.gamer.core.internal.configuration.TheGamerCoreTestConfiguration;
@@ -34,14 +34,14 @@ public class DefaultRetrieveDifficultTest {
     void executeSuccess(){
         Gamer gamer = GamerUtils.createGamer();
         this.createGamer.execute(gamer);
-        Task task = this.fillData(gamer);
-        task.getAttributes().stream().forEach(taskAttribute -> {
+        Quest quest = this.fillData(gamer);
+        quest.getAttributes().stream().forEach(questAttribute -> {
             Assertions.assertInstanceOf(Difficult.class,
-                    this.retrieveDifficult.execute(taskAttribute, gamer.getId()));
+                    this.retrieveDifficult.execute(questAttribute, gamer.getId()));
         });
     }
 
-    private Task fillData(Gamer gamer) {
-        return GamerUtils.createTask(GamerUtils.createSchedule(gamer));
+    private Quest fillData(Gamer gamer) {
+        return GamerUtils.createQuest(GamerUtils.createSchedule(gamer));
     }
 }

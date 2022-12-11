@@ -1,5 +1,5 @@
 package br.com.method.the.gamer.core.api.model;
 
-public enum TaskStatus {
+public enum QuestStatus {
     OPEN, RUNNING, EXPIRED, CLOSED
 }

@@ -26,12 +26,12 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "TASK")
-public class Task {
+@Table(name = "QUEST")
+public class Quest {
 
     @Id
-    @SequenceGenerator(name = "taskSequenceGenerator", sequenceName = "TASK_SQ", initialValue = 1000)
-    @GeneratedValue(generator = "taskSequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "questSequenceGenerator", sequenceName = "QUEST_SQ", initialValue = 1000)
+    @GeneratedValue(generator = "questSequenceGenerator", strategy = GenerationType.SEQUENCE)
     @Column(name = "ID", updatable = false)
     private Long id;
 
@@ -72,12 +72,12 @@ public class Task {
 
     @Column(name = "ATTRIBUTES")
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @JoinColumn(name = "TASK_ID", referencedColumnName = "ID")
-    private Set<TaskAttribute> attributes;
+    @JoinColumn(name = "QUEST_ID", referencedColumnName = "ID")
+    private Set<QuestAttribute> attributes;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
-    private TaskStatus status;
+    private QuestStatus status;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.DETACH})

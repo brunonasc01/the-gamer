@@ -21,12 +21,12 @@ public class DefaultRetrieveDifficult implements RetrieveDifficult {
     private static final Integer MULTIPLY_BY_100 = 100;
     
     @Override
-    public Difficult execute(TaskAttribute taskAttribute, Long gamerId) {
+    public Difficult execute(QuestAttribute questAttribute, Long gamerId) {
         Optional<Gamer> gamer = this.retrieveGamer.execute(gamerId);
         Map<AttributeType, Double> gamerAttributeWeights = this.getGamerAttributeWeights(gamer.orElseThrow());
-        Double attributeWeight = gamerAttributeWeights.get(taskAttribute.getType());
+        Double attributeWeight = gamerAttributeWeights.get(questAttribute.getType());
         //TODO definir retornar valor bruto, indice ou Enum
-        return this.calculateDifficult(taskAttribute, attributeWeight);
+        return this.calculateDifficult(questAttribute, attributeWeight);
     }
     
     private Integer getGamerAttributePointsTotal(Gamer gamer) {
@@ -43,14 +43,14 @@ public class DefaultRetrieveDifficult implements RetrieveDifficult {
         return attribute.getPoints() > 0 ? (attribute.getPoints().doubleValue()/attributePointsTotal)*MULTIPLY_BY_100 : 0d;
     }
 
-    private Difficult calculateDifficult(TaskAttribute taskAttribute, Double attributeWeight) {
+    private Difficult calculateDifficult(QuestAttribute questAttribute, Double attributeWeight) {
         if(attributeWeight <= 0) {
            return Difficult.VERY_HARD;
         }
-        Double difficultFactor = Math.sqrt(taskAttribute.getWeight().doubleValue()/attributeWeight);
+        Double difficultFactor = Math.sqrt(questAttribute.getWeight().doubleValue()/attributeWeight);
 
-        log.info("Task weight {}, Attribute weight {} Difficult {}",
-                taskAttribute.getWeight(), attributeWeight, difficultFactor);
+        log.info("Quest weight {}, Attribute weight {} Difficult {}",
+                questAttribute.getWeight(), attributeWeight, difficultFactor);
 
         if(difficultFactor < 0.75) {
             return Difficult.VERY_EASY;

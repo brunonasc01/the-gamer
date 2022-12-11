@@ -58,28 +58,28 @@ public class GamerUtils {
         return schedule;
     }
 
-    public static Task createTask(Schedule schedule) {
-        Task task = new Task();
-        task.setCreatedBy(schedule.getCreatedBy());
-        task.setCreatedDate(LocalDateTime.now());
-        task.setName("Task1");
-        task.setDescription("description of task");
-        task.setDuration(Duration.ofHours(1L).toMillis());
-        task.setDifficult(Difficult.NORMAL);
-        task.setStart(LocalDateTime.now());
-        task.setStatus(TaskStatus.OPEN);
-        task.setSchedule(schedule);
-        task.setAttributes(Arrays.stream(AttributeType.values())
-                .map(GamerUtils::createTaskAttribute).collect(Collectors.toSet()));
-        return task;
+    public static Quest createQuest(Schedule schedule) {
+        Quest quest = new Quest();
+        quest.setCreatedBy(schedule.getCreatedBy());
+        quest.setCreatedDate(LocalDateTime.now());
+        quest.setName("Quest1");
+        quest.setDescription("description of quest");
+        quest.setDuration(Duration.ofHours(1L).toMillis());
+        quest.setDifficult(Difficult.NORMAL);
+        quest.setStart(LocalDateTime.now());
+        quest.setStatus(QuestStatus.OPEN);
+        quest.setSchedule(schedule);
+        quest.setAttributes(Arrays.stream(AttributeType.values())
+                .map(GamerUtils::createQuestAttribute).collect(Collectors.toSet()));
+        return quest;
     }
 
-    public static TaskAttribute createTaskAttribute(AttributeType attributeType) {
-        TaskAttribute taskAttribute = new TaskAttribute();
-        taskAttribute.setCreatedBy("Mathew");
-        taskAttribute.setCreatedDate(LocalDateTime.now());
-        taskAttribute.setType(attributeType);
-        taskAttribute.setWeight(100);
-        return taskAttribute;
+    public static QuestAttribute createQuestAttribute(AttributeType attributeType) {
+        QuestAttribute questAttribute = new QuestAttribute();
+        questAttribute.setCreatedBy("Mathew");
+        questAttribute.setCreatedDate(LocalDateTime.now());
+        questAttribute.setType(attributeType);
+        questAttribute.setWeight(100);
+        return questAttribute;
     }
 }

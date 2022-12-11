@@ -133,13 +133,13 @@
     </changeSet>
 
     <changeSet author="bruno.araujo" id="2022111900001-1">
-        <createSequence incrementBy="50" sequenceName="task_sq" startValue="1000"/>
+        <createSequence incrementBy="50" sequenceName="quest_sq" startValue="1000"/>
     </changeSet>
 
     <changeSet author="bruno.araujo" id="2022111900001-2">
-        <createTable tableName="task">
+        <createTable tableName="quest">
             <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="taskPK"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="questPK"/>
             </column>
             <column name="created_by" type="VARCHAR(36)">
                 <constraints nullable="false"/>
@@ -179,17 +179,17 @@
     </changeSet>
 
     <changeSet author="bruno.araujo" id="2022111900001-3">
-        <addForeignKeyConstraint baseColumnNames="schedule_id" baseTableName="task" constraintName="taskScheduleFK" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="schedule" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="schedule_id" baseTableName="quest" constraintName="questScheduleFK" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="schedule" validate="true"/>
     </changeSet>
 
     <changeSet author="bruno.araujo" id="2022112000001-1">
-        <createSequence incrementBy="50" sequenceName="task_attribute_sq" startValue="1000"/>
+        <createSequence incrementBy="50" sequenceName="quest_attribute_sq" startValue="1000"/>
     </changeSet>
 
     <changeSet author="bruno.araujo" id="2022112000001-2">
-        <createTable tableName="task_attribute">
+        <createTable tableName="quest_attribute">
             <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="taskAttributePK"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="questAttributePK"/>
             </column>
             <column name="created_by" type="VARCHAR(36)">
                 <constraints nullable="false"/>
@@ -208,11 +208,11 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="task_id" type="BIGINT"/>
+            <column name="quest_id" type="BIGINT"/>
         </createTable>
     </changeSet>
 
     <changeSet author="bruno.araujo" id="2022112000001-3">
-        <addForeignKeyConstraint baseColumnNames="task_id" baseTableName="task_attribute" constraintName="taskAttributeFK" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="task" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="quest_id" baseTableName="quest_attribute" constraintName="questAttributeFK" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="quest" validate="true"/>
     </changeSet>
 </databaseChangeLog>
