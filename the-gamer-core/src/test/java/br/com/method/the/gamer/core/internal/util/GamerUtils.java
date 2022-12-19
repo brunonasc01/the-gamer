@@ -21,7 +21,7 @@ public class GamerUtils {
         gamer.setCreatedBy("Mathew");
         gamer.setCreatedDate(LocalDateTime.now());
         gamer.setName("Mathew");
-        gamer.setExperience(1l);
+        gamer.setExperience(1.0);
         gamer.setLevel(1);
         gamer.setAttributes(Arrays.stream(AttributeType.values())
                 .map(GamerUtils::createAttribute).collect(Collectors.toSet()));

@@ -1,17 +1,16 @@
 package br.com.method.the.gamer.core.internal.usecase;
 
-import br.com.method.the.gamer.core.api.model.Quest;
-import br.com.method.the.gamer.core.api.model.QuestStatus;
-import br.com.method.the.gamer.core.api.model.Schedule;
+import br.com.method.the.gamer.core.api.model.*;
+import br.com.method.the.gamer.core.api.repository.GamerRepository;
 import br.com.method.the.gamer.core.api.usecase.CreateGamer;
 import br.com.method.the.gamer.core.api.usecase.ProcessQuest;
-import br.com.method.the.gamer.core.api.usecase.RetrieveSchedule;
 import br.com.method.the.gamer.core.internal.configuration.TheGamerCoreTestConfiguration;
 import br.com.method.the.gamer.core.internal.util.GamerUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.AdditionalAnswers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,18 +36,19 @@ class DefaultProcessQuestTest {
     @Autowired
     CreateGamer createGamer;
 
-    @MockBean
-    RetrieveSchedule retrieveSchedule;
-
     @Mock
     Schedule schedule;
 
+    @MockBean
+    GamerRepository gamerRepository;
+
     @BeforeEach
     void init() {
-        this.schedule = new Schedule();
+        Gamer gamer = GamerUtils.createGamer();
+        this.schedule = GamerUtils.createSchedule(gamer);
         schedule.setId(1000L);
-        schedule.setGamer(GamerUtils.createGamer());
-        Mockito.when(this.retrieveSchedule.execute(Mockito.anyLong())).thenReturn(Optional.of(schedule));
+        Mockito.when(gamerRepository.save(Mockito.any())).then(AdditionalAnswers.returnsFirstArg());
+        Mockito.when(gamerRepository.findById(Mockito.any())).thenReturn(Optional.of(GamerUtils.createGamer()));
     }
 
     @Transactional
@@ -57,7 +57,7 @@ class DefaultProcessQuestTest {
         this.createGamer.execute(this.schedule.getGamer());
         LocalDateTime start = LocalDateTime.now();
         Quest newQuest = this.createQuest(this.schedule, start.minusHours(1).minusMinutes(30), start);
-        Assertions.assertTrue(this.processQuest.execute(newQuest).isEmpty());
+        Assertions.assertTrue(this.processQuest.execute(newQuest).isPresent());
     }
 
     private Quest createQuest(Schedule schedule, LocalDateTime start, LocalDateTime finish) {
@@ -65,6 +65,13 @@ class DefaultProcessQuestTest {
         quest.setStart(start);
         quest.setFinish(finish);
         quest.setStatus(QuestStatus.FINISHED);
+
+        int index = 1;
+        for(QuestAttribute questAttribute : quest.getAttributes()) {
+            questAttribute.setWeight(index * 10);
+            index++;
+        }
+
         return quest;
     }
 }

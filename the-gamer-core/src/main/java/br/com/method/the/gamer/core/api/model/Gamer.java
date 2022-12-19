@@ -56,7 +56,7 @@ public class Gamer {
     private Integer level;
 
     @Column(name = "EXPERIENCE")
-    private Long experience;
+    private Double experience;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
     @JoinColumn(name = "GAMER_ID", referencedColumnName = "ID")
